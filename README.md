@@ -14,7 +14,7 @@ The target variable is the volume of nitrogen needed, calculated or measured fro
 - Initial gas Type (Natural gas)
 
 ## Dataset Description
-There currently exists no data repository for predicting the amount of nitrogen needed for purging a process pipeline. This data is gotten from input from Subject Matter Experts (SMEs) who through their years of experience, were able to give input on the amount of nitrogen to be used give the pipeline data and other variables. The rest of the data is extrapolated to give a good enough amount of dataset for this modelling.
+There currently exists no data repository for predicting the amount of nitrogen needed for purging a process pipeline. This data is gotten from input from Subject Matter Experts (SMEs) who through their years of experience, were able to give input on the amount of nitrogen to be used given the pipeline data and other variables. The rest of the data is extrapolated to give a good enough amount of dataset for this modelling.
 
 The units of each row are as follows:
 1. pipeline_length (m)
@@ -34,6 +34,24 @@ Note: (-) ==> Dimensionless
 
 ![Exploratory Data Analysis](image.png)
 
+
+## Modelling Approach, Metrics, and Feature Importance
+This problem was approached as a regression problem, aiming to predict the required nitrogen volume based on pipeline and environmental parameters. The modeling pipeline included:
+1. Preprocessing: Feature scaling, handling missing values
+2. Model Selection: Experimented with three models:
+- Decision Tree Regressor
+- Random Forest Regressor
+- XGBoost Regressor
+3. Hyperparameter Tuning: Performed using GridSearchCV to optimize parameters like max_depth, min_samples_leaf, and n_estimators.
+
+The final model was selected based on validation performance
+
+### Evaluation Metrics
+Since this is a regression analysis, Root Mean Squared Error (RMSE) was used for model selection and comparison
+
+### Feature Importance
+![Feature Importance](image-1.png)
+
 ## Tech Stack
 - Python 3.13.3
 - Pandas, Numpy for data handling
@@ -42,7 +60,7 @@ Note: (-) ==> Dimensionless
 - FastAPI for deployment
 - Docker for containerization
 
-## How to Run the Project
+## How to Run the Project Locally
 1. Clone the Repository
 ```bash
 git clone https://github.com/Abasi-ifreke/nitrogen-purging.git
@@ -55,4 +73,66 @@ Create a virtual environment and install dependencies:
 python -m venv .venv
 source .venv/bin/activate  # On Windows:  .venv\Scripts\activate
 pip install -r requirements.txt
+```
+
+3. Train the model
+You can either use the existing model.bin or run the train.py to create a new model.bin
+```bash
+python train.py
+```
+This generates the model.bin file and also display the RMSE score in this form:
+```bash
+Test RMSE: 13.16
+```
+
+4. Run the application
+To run the application, use uvicorn:
+```bash
+uvicorn predict:app --host 0.0.0.0 --port 9696 --reload
+```
+
+5. Test the application
+Test to see the application is running using eith of both options below:
+```bash
+curl -X POST -H "Content-Type: application/json" \
+     -d '{
+           "pipeline_length": 800,
+           "inner_diameter": 24,
+           "target_residual_conc": 2.3,
+           "operating_pressure": 50.1,
+           "temperature": 35.2,
+           "num_bends": 0,
+           "ambient_temperature": 30.5,
+           "num_purge_cycles": 3,
+           "safety_factor": 1.2,
+           "pipeline_volume": 233.5
+         }' \
+     http://localhost:9696/predict
+```
+or
+
+```bash
+python serve.py
+```
+
+## How to Run the Project with Docker
+1. Build the image
+Make sure you're in the directory with the Dockerfile
+```bash
+docker build -t nitrogen-predictor .
+```
+
+2. Confirm the image
+```bash
+docker images
+```
+
+3. Run the container
+```bash
+docker run -it -p 9696:9696 --name nitrogen-app nitrogen-predictor
+```
+
+4. Test the application
+```bash
+python train.py
 ```

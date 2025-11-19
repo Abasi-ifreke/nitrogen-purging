@@ -1,0 +1,14 @@
+[project]
+name = "nitrogen-purging"
+version = "0.1.0"
+description = "Nitrogen Volume Prediction"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.121.2",
+    "pandas>=2.3.3",
+    "requests>=2.32.5",
+    "scikit-learn>=1.7.2",
+    "uvicorn>=0.38.0",
+    "xgboost>=3.1.1",
+]
