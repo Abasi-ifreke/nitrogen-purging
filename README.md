@@ -140,7 +140,7 @@ python serve.py
 ## Deployment to the Cloud
 This service has been deployed to Google Cloud's Cloud run Service with the url [here](https://purging-app-821515324022.us-central1.run.app/docs).
 
-To test it, substitute the link on serve.py with this one and run
+To test it, substitute the url on serve.py with this `https://purging-app-821515324022.us-central1.run.app/predict` and run the command
 ```bash
 python serve.py
 ```
