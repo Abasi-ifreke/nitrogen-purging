@@ -7,11 +7,10 @@ Given pipeline specifications and operating conditions, estimate the volume of n
 - Pipeline length, diameter, and volume
 - Target residual concentration
 - Operating and ambient temperature
-- Pressure, Safety factor, purge cycle, and number of bends/valves
-- Purge method (displacement or dilution)
+- Pressure, Safety factor, purge cycle, and number of bends
 
 The target variable is the volume of nitrogen needed, calculated or measured from past operations. The assumed/fixed variables are:
-- Purge method (displacement)
+- Purge method (dilution)
 - Initial gas Type (Natural gas)
 
 ## Tech Stack
