@@ -134,5 +134,28 @@ docker run -it -p 9696:9696 --name nitrogen-app nitrogen-predictor
 
 4. Test the application
 ```bash
-python train.py
+python serve.py
 ```
+
+## Deployment to the Cloud
+This service has been deployed to Google Cloud's Cloud run Service with the url [here](https://purging-app-821515324022.us-central1.run.app/docs).
+
+To test it, substitute the link on serve.py with this one and run
+```bash
+python serve.py
+```
+![Cloud run 1](<cloud run 1.png>)
+
+![Cloud run 2](<cloud run 2.png>)
+
+To host the application on Google Cloud run:
+1. Make sure you have a google cloud account completely set up
+2. Download google cloud sdk and complete sdk set up on your local machine
+3. Make sure your service account/IAM account has the right permissions
+4. On Google Cloud console, Enable Cloud run API
+5. Tag and Push your docker image to dockerhub
+6. On your terminal, run the code
+```bash
+gcloud run deploy purging-app --image <docker-image-from-dockerhub> --port 9696 --allow-unauthenticated --region us-central1
+```
+A service url will be printed on the terminal to access the service
