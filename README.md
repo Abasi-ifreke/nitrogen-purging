@@ -159,3 +159,8 @@ To host the application on Google Cloud run:
 gcloud run deploy purging-app --image <docker-image-from-dockerhub> --port 9696 --allow-unauthenticated --region us-central1
 ```
 A service url will be printed on the terminal to access the service
+
+To delete the service on google cloud run, run the command below
+```bash
+gcloud run services delete purging-app --region us-central1
+```
