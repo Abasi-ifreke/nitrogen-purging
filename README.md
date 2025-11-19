@@ -13,6 +13,27 @@ The target variable is the volume of nitrogen needed, calculated or measured fro
 - Purge method (dilution)
 - Initial gas Type (Natural gas)
 
+## Dataset Description
+There currently exists no data repository for predicting the amount of nitrogen needed for purging a process pipeline. This data is gotten from input from Subject Matter Experts (SMEs) who through their years of experience, were able to give input on the amount of nitrogen to be used give the pipeline data and other variables. The rest of the data is extrapolated to give a good enough amount of dataset for this modelling.
+
+The units of each row are as follows:
+1. pipeline_length (m)
+2. inner_diameter (inches)
+3. target_residual_conc (%HC - Hydrocarbon)
+4. operating_pressure (psi)
+5. temperature (C)
+6. num_bends (-)
+7. ambient_temperature (C)
+8. num_purge_cycles (-)
+9. safety_factor (-)
+10. pipeline_volume (m3)
+
+Note: (-) ==> Dimensionless
+
+## EDA Summary
+
+![Exploratory Data Analysis](image.png)
+
 ## Tech Stack
 - Python 3.13.3
 - Pandas, Numpy for data handling
